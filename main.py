@@ -1,8 +1,6 @@
 import datetime
 import re
 
-
-
 header = """
 <!DOCTYPE html>
 <html>
@@ -18,6 +16,7 @@ footer = """
 </body>
 </html>
 """
+
 
 def convert_xml_to_html(xml):
     xml = xml.replace("<event>", "<div class='event'>")
@@ -53,17 +52,17 @@ def write_index_page(html):
 def main():
     import glob
     filenames = glob.glob("data/*.xml")
-    with open('xml_input.xml', 'w') as outfile:
+    with open('output/xml_input.xml', 'w') as outfile:
         for fname in filenames:
             with open(fname) as infile:
                 for line in infile:
                     outfile.write(line)
 
-    with open('xml_input.xml', 'r') as infile:
+    with open('output/xml_input.xml', 'r') as infile:
         converted_xml = convert_xml_to_html(infile.read().replace('\n', ''))
         index_page = build_index_page(converted_xml)
 
-    with open('index.html', 'w') as outfile:
+    with open('output/index.html', 'w') as outfile:
         for line in index_page:
             outfile.write(line)
 
